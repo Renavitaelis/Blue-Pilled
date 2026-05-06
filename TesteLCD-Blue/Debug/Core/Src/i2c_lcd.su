@@ -1,0 +1,11 @@
+../Core/Src/i2c_lcd.c:13:6:lcd_init	16	static
+../Core/Src/i2c_lcd.c:43:6:lcd_send_cmd	32	static
+../Core/Src/i2c_lcd.c:66:6:lcd_gotoxy	32	static
+../Core/Src/i2c_lcd.c:87:6:lcd_clear_all	24	static
+../Core/Src/i2c_lcd.c:100:6:lcd_clear_row	24	static
+../Core/Src/i2c_lcd.c:119:6:lcd_put_char	16	static
+../Core/Src/i2c_lcd.c:130:6:lcd_put_string	16	static
+../Core/Src/i2c_lcd.c:139:6:lcd_shift_left	16	static
+../Core/Src/i2c_lcd.c:148:6:lcd_shift_right	16	static
+../Core/Src/i2c_lcd.c:158:6:lcd_scroll_left	24	static
+../Core/Src/i2c_lcd.c:172:6:lcd_scroll_right	24	static
