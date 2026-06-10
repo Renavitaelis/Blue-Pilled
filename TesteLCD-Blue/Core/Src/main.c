@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "i2c_lcd.h"
+#include "LCD_I2C.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +43,7 @@
 I2C_HandleTypeDef hi2c1;
 
 /* USER CODE BEGIN PV */
-I2C_LCD_HandleTypeDef lcd1;
+I2C_LCD_Handler lcd1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,30 +90,31 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  lcd1.hi2c = &hi2c1;
-  lcd1.address = 0x4E;
-  lcd_init(&lcd1);
-  HAL_Delay(100);
-
-  lcd_clear_all(&lcd1);
-  lcd_put_string(&lcd1, "LCD STM32F103");
-  lcd_gotoxy(&lcd1, 0, 1);
-  lcd_put_string(&lcd1, "ATUALIZADO :)");
+  LCD_Default_Init(&lcd1, &hi2c1, 20, 4);
+  char l1 [] = "STM32F103C6Tx";
+  char l2 [] = "Atualizado";
+  char l3 [] = "Integracao";
+  char l4 [] = "Concluida";
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  HAL_Delay(1000);
 	  HAL_GPIO_WritePin(GPIOC, LED_Blue_Pin, 1);
-	  HAL_Delay(100);
-
-	  lcd_clear_all(&lcd1);
-	  lcd_put_string(&lcd1, "LCD STM32F103");
-	  lcd_gotoxy(&lcd1, 0, 1);
-	  lcd_put_string(&lcd1, "ATUALIZADO :)");
-	  HAL_Delay(2000);
+	  LCD_Set_Pos_Home(&lcd1);
+	  for (uint8_t L = 0; L < sizeof(l1)-1 ; L++) {LCD_Write_Char(&lcd1, l1[L]); HAL_Delay(300);}
+	  LCD_Set_Pos(&lcd1, 0, 1);
+	  for (uint8_t L = 0; L < sizeof(l2)-1 ; L++) {LCD_Write_Char(&lcd1, l2[L]); HAL_Delay(300);}
+	  LCD_Set_Pos(&lcd1, 0, 2);
+	  for (uint8_t L = 0; L < sizeof(l3)-1 ; L++) {LCD_Write_Char(&lcd1, l3[L]); HAL_Delay(300);}
+	  LCD_Set_Pos(&lcd1, 0, 3);
+	  for (uint8_t L = 0; L < sizeof(l4)-1 ; L++) {LCD_Write_Char(&lcd1, l4[L]); HAL_Delay(300);}
+	  LCD_Scroll_Shift(&lcd1, LCD_Shift_Display, LCD_Shift_Right, 150);
 	  HAL_GPIO_WritePin(GPIOC, LED_Blue_Pin, 0);
+	  HAL_Delay(1000);
+	  LCD_Clear_All(&lcd1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
